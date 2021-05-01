@@ -106,8 +106,6 @@ def scroll(name='user10@gmail.com',open_login=print('Hi')):
 
         #This function is to display card in Scrollable frame
         def updateCard(self):
-            #urllib.request.urlretrieve("https://i.imgur.com/ExdKOOz.png", "sample.png")
-            #self.image=PIL.Image.open("sample.png")
             self.image = PIL.Image.open(self.path)
             self.image = self.image.resize((175, 205),Image.ANTIALIAS)
             self.photo = ImageTk.PhotoImage(self.image)
