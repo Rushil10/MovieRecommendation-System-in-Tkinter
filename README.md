@@ -15,14 +15,14 @@ Implementation:
 
 Few Images:
 
-![](imgs/mm1.png)
-![](imgs/mm8.png)
-![](imgs/mm2.png)
-![](imgs/mm3.png)
-![](imgs/mm4.png)
-![](imgs/mm5.png)
-![](imgs/mm6.png)
-![](imgs/mm7.png)
+![](sampleImages/mm1.png)
+![](sampleImages/mm8.png)
+![](sampleImages/mm2.png)
+![](sampleImages/mm3.png)
+![](sampleImages/mm4.png)
+![](sampleImages/mm5.png)
+![](sampleImages/mm6.png)
+![](sampleImages/mm7.png)
 
 
 # How To Setup
