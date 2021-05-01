@@ -17,10 +17,6 @@ dist/
 downloads/
 eggs/
 allImages/
-mainpage.py/
-sample.png/
-signup.py/
-login.py/
 .eggs/
 lib/
 lib64/
