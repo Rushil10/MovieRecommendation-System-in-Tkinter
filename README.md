@@ -14,15 +14,7 @@ Implementation:
 * Implementing a scrollable frame inside tkinter window
 
 Few Images:
-
-![](sampleImages/mm1.png)
-![](sampleImages/mm8.png)
-![](sampleImages/mm2.png)
-![](sampleImages/mm3.png)
-![](sampleImages/mm4.png)
-![](sampleImages/mm5.png)
-![](sampleImages/mm6.png)
-![](sampleImages/mm7.png)
+<img src="https://firebasestorage.googleapis.com/v0/b/sample-app-33736.appspot.com/o/mm1.png?alt=media&token=60f759b3-246e-4ba3-873a-c4492c61c5b6" />
 
 
 # How To Setup
