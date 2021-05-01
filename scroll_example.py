@@ -4,6 +4,7 @@ from tkinter import ttk, messagebox
 import mysql.connector
 import PIL
 from PIL import ImageTk, Image
+import emotionthroughuser
 
 Image.MAX_IMAGE_PIXELS = None
 
@@ -190,6 +191,38 @@ def scroll(name='user10@gmail.com',open_login=print('Hi')):
     frame = ScrollableFrame(root)
     y=10
 
+    def getEmotion():
+        emotion = emotionthroughuser.getMoviethroughEmotion()
+        if(emotion[0]=='happy'):
+            sql = 'SELECT distinct * from ostpl_mp.movies where type=%s or type=%s or type=%s ORDER BY RAND() LIMIT 44'
+            na=('comedy','action','animated')
+            changeMovieCardSql(sql,na)
+        elif(emotion[0]=='sad'):
+            sql = 'SELECT distinct * from ostpl_mp.movies where type=%s or type=%s or type=%s ORDER BY RAND() LIMIT 44'
+            na = ('mystery', 'animated', 'series')
+            changeMovieCardSql(sql, na)
+        elif (emotion[0] == 'fear'):
+            sql = 'SELECT distinct * from ostpl_mp.movies where type=%s or type=%s ORDER BY RAND() LIMIT 44'
+            na = ('horror', 'mystery')
+            changeMovieCardSql(sql, na)
+        elif (emotion[0] == 'surprise'):
+            sql = 'SELECT distinct * from ostpl_mp.movies where type=%s or type=%s or type=%s ORDER BY RAND() LIMIT 44'
+            na = ('action', 'mystery', 'horror')
+            changeMovieCardSql(sql, na)
+        else:
+            sql = 'SELECT distinct * from ostpl_mp.movies ORDER BY RAND() LIMIT 44'
+            na = ()
+            changeMovieCardSql(sql,na)
+
+    def changeMovieCardSql(sql='SELECT distinct * from ostpl_mp.movies ORDER BY RAND() LIMIT 44',na=()):
+        mycursor.execute(sql,na)
+        myresult = mycursor.fetchall()
+        k=0
+        for i in movie_cards:
+            if(k<len(myresult)):
+                i.changeImage('imgs/{}.jpg'.format(myresult[k][0]),myresult[k][1],myresult[k][2][5:],myresult[k][8],'Imdb {}'.format(myresult[k][4]),myresult[k][7],myresult[k][9],'Director : {}'.format(myresult[k][5]),myresult[k][0])
+                k=k+1
+
     def changeMovieCard(category):
         na = (category,)
         mycursor.execute("SELECT * FROM ostpl_mp.movies Where type = %s", na)
@@ -277,6 +310,8 @@ def scroll(name='user10@gmail.com',open_login=print('Hi')):
                        bd=0, font=("times new roman", 21)).place(x=1085, y=1, height=45, width=145)
     series = tk.Button(root, text="Series", command=lambda: changeMovieCard('series'), bg="black", fg="#ffd700",
                           bd=0, font=("times new roman", 21)).place(x=1245, y=1, height=45, width=145)
+    random = tk.Button(root, text="Shuffle", command=changeMovieCardSql, bg="black", fg="#e0ffff",
+                       bd=0, font=("times new roman", 20)).place(x=1405, y=1, height=45, width=105)
     print(name)
     image2 = PIL.Image.open('imgs/fbg2.jpg')
     image2 = image2.resize((445, 759), Image.ANTIALIAS)
@@ -288,6 +323,8 @@ def scroll(name='user10@gmail.com',open_login=print('Hi')):
         root.destroy()
         open_login()
 
+    emotion = tk.Button(root, text="Detect My Emotion", bg="black", fg="#e0ffff", command=getEmotion,
+                           bd=0, font=("times new roman", 21)).place(x=100, y=295, height=45, width=245)
     favourites = tk.Button(root, text="My Favourites", bg="black", fg="#e0ffff",command=showFavourites,
                        bd=0, font=("times new roman", 21)).place(x=100, y=405, height=45, width=245)
     watchlater = tk.Button(root, text="Watch Later", bg="black", fg="#e0ffff",command=showWatchLater,
