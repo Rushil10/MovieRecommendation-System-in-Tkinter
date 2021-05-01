@@ -17,11 +17,13 @@ mydb = mysql.connector.connect(
 
 mycursor = mydb.cursor()
 
-
+# main Function
 def scroll(name='user10@gmail.com',open_login=print('Hi')):
     import tkinter as tk
     from tkinter import ttk
     movie_cards = []
+
+    #Creating a scrollable frame to show MovieCards
     class ScrollableFrame(ttk.Frame):
         def __init__(self, container, *args, **kwargs):
             super().__init__(container, *args, **kwargs)
@@ -43,6 +45,7 @@ def scroll(name='user10@gmail.com',open_login=print('Hi')):
             canvas.pack(side="left", fill="both", expand=True)
             scrollbar.pack(side="right", fill="y")
 
+    #Adding To Favourites using email
     def addTpFavourites(id,title):
         print('Hi')
         check = "Select * from ostpl_mp.favourites where email=%s and movieId=%s"
@@ -63,6 +66,7 @@ def scroll(name='user10@gmail.com',open_login=print('Hi')):
             messagebox.showinfo('Added', '{} is in Your Favourites'.format(title))
             print("Added")
 
+    #Add To Watch Later using email
     def addToLater(id,title):
         print('Hi')
         check = "Select * from ostpl_mp.watchlater where email=%s and movieId=%s"
@@ -83,7 +87,9 @@ def scroll(name='user10@gmail.com',open_login=print('Hi')):
             messagebox.showinfo('Added', '{} is added to watch later'.format(title))
             print("Added")
 
+    #MovieCard to be displayed on Frame
     class MovieCard:
+        #Giving  MovieCard it's various attributes
         def __init__(self,path='images/im1.jpg',tile='',loc='0',desc='',y='',r='4',time='120',genre='',d='None',id=0,show=0):
             self.MC = ttk.Label(frame.scrollable_frame)
             self.path=path
@@ -98,6 +104,7 @@ def scroll(name='user10@gmail.com',open_login=print('Hi')):
             self.id = id
             self.show=show
 
+        #This function is to display card in Scrollable frame
         def updateCard(self):
             #urllib.request.urlretrieve("https://i.imgur.com/ExdKOOz.png", "sample.png")
             #self.image=PIL.Image.open("sample.png")
@@ -148,6 +155,7 @@ def scroll(name='user10@gmail.com',open_login=print('Hi')):
             self.mainLabel.pack()
             self.MC.pack(pady=4.5,anchor="w")
 
+        #This Function changes content of the card
         def changeImage(self,imgPath,heading,desc,y,r,time,genre,d,id,show=0):
             print(show)
             self.show=show
@@ -180,19 +188,16 @@ def scroll(name='user10@gmail.com',open_login=print('Hi')):
                 self.rff.place(x=1150, y=45, height=45, width=175)
                 self.rfwl.place(x=875, y=105, height=45, width=175)
                 self.wl.place(x=1150, y=105, height=45, width=175)
-        def destroy(self):
-            print("Destroing")
-            self.label = tk.Label(self.MC, image=self.photo, bg="blue", height=0, width=0)
-            self.label.pack()
-            self.MC.pack(pady=0)
 
+    #Initializing Main Frame
     root = tk.Tk()
     root.geometry("1525x759")
     frame = ScrollableFrame(root)
-    y=10
 
+    #Getting User Emotion through FER, it's function is in emotionthroughuser.py
     def getEmotion():
         emotion = emotionthroughuser.getMoviethroughEmotion()
+        #Filtering movies according to emotion
         if(emotion[0]=='happy'):
             sql = 'SELECT distinct * from ostpl_mp.movies where type=%s or type=%s or type=%s ORDER BY RAND() LIMIT 44'
             na=('comedy','action','animated')
@@ -233,6 +238,7 @@ def scroll(name='user10@gmail.com',open_login=print('Hi')):
                 i.changeImage('imgs/{}.jpg'.format(myresult[k][0]),myresult[k][1],myresult[k][2][5:],myresult[k][8],'Imdb {}'.format(myresult[k][4]),myresult[k][7],myresult[k][9],'Director : {}'.format(myresult[k][5]),myresult[k][0])
                 k=k+1
 
+    #Removing from Favourites
     def removeFromFav(id,title):
         print('Removing')
         sql='Delete from favourites where email=%s and movieId=%s'
@@ -241,6 +247,7 @@ def scroll(name='user10@gmail.com',open_login=print('Hi')):
         mydb.commit()
         showFavourites()
 
+    #Remove From Watch Later
     def removeFromWl(id,title):
         print('Removing')
         sql='Delete from watchlater where email=%s and movieId=%s'
@@ -249,7 +256,7 @@ def scroll(name='user10@gmail.com',open_login=print('Hi')):
         mydb.commit()
         showWatchLater()
 
-
+    #Getting movie data according to a category
     def getMovieDataOfCategory(category):
         na=(category,)
         mycursor.execute("SELECT * FROM ostpl_mp.movies Where type = %s", na)
@@ -319,12 +326,13 @@ def scroll(name='user10@gmail.com',open_login=print('Hi')):
     user = tk.Frame(root)
     lbl = tk.Label(user,image=photo2)
     lbl.place(x=0,y=0)
+
     def logout():
         root.destroy()
         open_login()
 
     emotion = tk.Button(root, text="Detect My Emotion", bg="black", fg="#e0ffff", command=getEmotion,
-                           bd=0, font=("times new roman", 21)).place(x=100, y=295, height=45, width=245)
+                           bd=0, font=("times new roman", 21)).place(x=100, y=171, height=45, width=245)
     favourites = tk.Button(root, text="My Favourites", bg="black", fg="#e0ffff",command=showFavourites,
                        bd=0, font=("times new roman", 21)).place(x=100, y=405, height=45, width=245)
     watchlater = tk.Button(root, text="Watch Later", bg="black", fg="#e0ffff",command=showWatchLater,

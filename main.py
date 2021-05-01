@@ -5,6 +5,7 @@ import re
 from PIL import ImageTk, Image
 import scroll_example
 
+#Connect To MySQL database
 mydb = mysql.connector.connect(
     host="localhost",
     user="root",
@@ -14,40 +15,12 @@ mydb = mysql.connector.connect(
 
 mycursor = mydb.cursor()
 
+#Login Window / Login Frame
 def window():
-    #from signup import signup_window
 
     def goToSignup():
         form.destroy()
         signup_window()
-
-    def checkUsername(name):
-        check1 = 'Username must be atleast 5 charcters long !'
-        if (len(name) < 5):
-            return check1
-        else:
-            return ''
-
-    def checkPassword(password):
-        check1 = 'Password must be greater than 8 characters and less than 15 characters'
-        check2 = 'Password must contain atleast lowerCase letter'
-        check3 = 'Password must contain atleast upperCase letter'
-        check4 = 'Password must contain atleast one digit '
-        check5 = 'Password must contain atlease one special symbol '
-        special = ['$', '#', '@']
-        x = re.findall(".*[a-z].*", password)
-        y = re.findall(".*[A-Z].*", password)
-        z = re.findall(".*\d.*", password)
-        if (len(password) < 8 or len(password) > 15):
-            return check1
-        elif len(x) == 0:
-            return check2
-        elif len(y) == 0:
-            return check3
-        elif (len(z) == 0):
-            return check4
-        else:
-            return ''
 
     def open_login():
         window()
@@ -65,8 +38,6 @@ def window():
             if (len(myresult) == 1):
                 form.destroy()
                 scroll_example.scroll(name, open_login)
-                # messagebox.showinfo('Success', 'Login Successfull ! ')
-                # form.destroy()
             else:
                 messagebox.showinfo('Failed', 'Login Unsuccessfull !')
 
@@ -98,12 +69,11 @@ def window():
     login_btn = Button(form, text="Login", bg="#1da1f2", fg="black", command=login, font=("times new roman", 20)).place(
         x=305, y=479, height=40, width=175)
 
-    # Frame_login.configure(bg='green')
     form.title('Ostpl Login Form')
     form.mainloop()
 
+#Signup Form / Signup Frame
 def signup_window():
-    #from main import window
 
     def open_login():
         window()
@@ -175,23 +145,6 @@ def signup_window():
         print("Hi")
         print(credential)
 
-    def login():
-        name = txt_email.get()
-        credential = txt_password.get()
-        sql = "Select * from login_details where username = %s and password = %s "
-        prop = (name, credential)
-        mycursor.execute(sql, prop)
-        myresult = mycursor.fetchall()
-        if (len(name) == 0 or len(credential) == 0):
-            messagebox.showinfo('Failed', 'Username and password must not be empty !')
-        else:
-            if (len(myresult) == 1):
-                form.destroy()
-                # messagebox.showinfo('Success', 'Login Successfull ! ')
-                # form.destroy()
-            else:
-                messagebox.showinfo('Failed', 'Login Unsuccessfull !')
-
     form = Tk()
     form.geometry("2000x795")
     image = Image.open('imgs/bg7.jpg')
@@ -224,13 +177,8 @@ def signup_window():
     signup_btn = Button(form, text="Signup", bg="#1da1f2", fg="black", command=signup, font=("times new roman", 20)).place(
         x=305, y=531, height=40, width=175)
 
-    # Frame_login.configure(bg='green')
     form.title('Ostpl Login Form')
     form.mainloop()
 
-
-
+#Calling Login Form
 window()
-#mainpage.mainScreen()
-#scroll_example.scroll()
-#movie_data_parse.exec()

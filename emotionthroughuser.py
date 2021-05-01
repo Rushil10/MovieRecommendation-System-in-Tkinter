@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup as SOUP
 import re
 import requests as HTTP
 
+#GEtting Emotion Of User
 def getMoviethroughEmotion():
     global clicked
     def back(*args):
@@ -42,4 +43,3 @@ def getMoviethroughEmotion():
     cap.release()
     return emotion
 
-    # Main Function for scraping
