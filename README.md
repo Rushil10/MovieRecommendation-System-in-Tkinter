@@ -19,7 +19,7 @@ Few Images:
 
 # How To Setup
 
-* 1.Create a MySQL schema and import the database provided in folder.
+* 1.Create a MySQL schema and import the database provided in folder mysql_database Data.
 * 2.This already contains user as well as movies information.
 * 3.In your python editor change ostpl_mp to your MySQL database name in main.py and scroll_example.py
 * 4.pip install all required dependencies.
