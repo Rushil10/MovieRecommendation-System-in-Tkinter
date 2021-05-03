@@ -213,3 +213,4 @@ def reduceImageSize():
         foo=foo.resize((175,205),Image.ANTIALIAS)
         foo.save('imgs/{}.jpg'.format(str(i)),quality=95)
 
+

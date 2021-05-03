@@ -21,7 +21,7 @@ Few Images:
 ![](sampleImages/mm4.png)
 ![](sampleImages/mm5.png)
 ![](sampleImages/mm6.png)
-![](sampleImages/mm7.png)
+![](sampleImages/mm9.png)
 
 # How To Setup
 
