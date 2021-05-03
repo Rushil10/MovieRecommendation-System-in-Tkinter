@@ -111,6 +111,8 @@ def signup_window():
         else:
             return ''
 
+    myemotion='neutral'
+
     def signup():
         err = ''
         email = txt_email.get()
@@ -182,3 +184,4 @@ def signup_window():
 
 #Calling Login Form
 window()
+

@@ -195,6 +195,7 @@ def scroll(name='user10@gmail.com',open_login=print('Hi')):
     #Getting User Emotion through FER, it's function is in emotionthroughuser.py
     def getEmotion():
         emotion = emotionthroughuser.getMoviethroughEmotion()
+        showMyEmotion(emotion[0])
         #Filtering movies according to emotion
         if(emotion[0]=='happy'):
             sql = 'SELECT distinct * from ostpl_mp.movies where type=%s or type=%s or type=%s ORDER BY RAND() LIMIT 44'
@@ -333,6 +334,13 @@ def scroll(name='user10@gmail.com',open_login=print('Hi')):
                            bd=0, font=("times new roman", 21)).place(x=100, y=171, height=45, width=245)
     favourites = tk.Button(root, text="My Favourites", bg="black", fg="#e0ffff",command=showFavourites,
                        bd=0, font=("times new roman", 21)).place(x=100, y=405, height=45, width=245)
+    def showMyEmotion(emot='neutral'):
+        try :
+            lbl = emo.cget("text")
+            emo.configure(text=emot)
+        except :
+            emo = tk.Label(root, bg="black", fg='#e0ffff', text=emot,font=("times new roman",21))
+            emo.place(x=100, y=255, width=245, height=45)
     watchlater = tk.Button(root, text="Watch Later", bg="black", fg="#e0ffff",command=showWatchLater,
                        bd=0, font=("times new roman", 21)).place(x=100, y=475, height=45, width=245)
     logout = tk.Button(root, text="Logout", bg="black", fg="#e0ffff",command=logout,
